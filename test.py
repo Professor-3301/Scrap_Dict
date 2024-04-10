@@ -1,8 +1,10 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
+import concurrent.futures
 
-def get_links(url):
+def get_links(url, domain_links):
     try:
         response = requests.get(url)
         if response.status_code == 200:
@@ -11,48 +13,64 @@ def get_links(url):
             links = [a.get('href') for a in soup.find_all('a', href=True)]
             # Make links absolute using urljoin
             absolute_links = [urljoin(url, link) for link in links]
-            return absolute_links
+            # Filter out only the links belonging to the same domain
+            parsed_url = urlparse(url)
+            same_domain_links = [link for link in absolute_links if urlparse(link).netloc == parsed_url.netloc]
+            # Remove duplicate links
+            same_domain_links = list(set(same_domain_links))
+            # Append the filtered links to the domain_links list
+            domain_links.extend(same_domain_links)
         else:
             print(f"Failed to retrieve webpage. Status code: {response.status_code}")
-            return []
     except Exception as e:
         print(f"An error occurred: {str(e)}")
-        return []
 
-def scrape_content(url):
+# Example usage
+domain_links = []
+url_to_scrape = 'https://www.ceconline.edu'
+get_links(url_to_scrape, domain_links)
+
+def download_image(url, folder):
+    try:
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+
+            file_name = os.path.basename(urlparse(url).path)
+            file_path = os.path.join(folder, file_name)
+            if not os.path.exists(file_path):  # Check if file already exists
+                with open(file_path, 'wb') as file:
+                    for chunk in response.iter_content(chunk_size=1024):
+                        if chunk:
+                            file.write(chunk)
+                print(f"Image downloaded: {file_path}")
+            else:
+                print(f"Image already exists: {file_path}")
+        else:
+            print(f"Failed to download image from {url}. Status code: {response.status_code}")
+    except Exception as e:
+        print(f"An error occurred while downloading image from {url}: {str(e)}")
+
+
+def scrape_images_from_url(url):
     try:
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            # Extract and process content as needed
-            content = soup.get_text()
-            # print(f"Content from {url}:\n{content}\n")
-
-            # Get links on the current page
-            links_on_page = get_links(url)
-            # Crawl each link on the page
-            for link in links_on_page:
-                # Ensure it's from the same domain
-                if urlparse(link).netloc == urlparse(url).netloc:
-                    crawl(link, max_depth=1)
+            img_tags = soup.find_all('img')
+            for img_tag in img_tags:
+                img_url = urljoin(url, img_tag['src'])
+                folder = os.path.join('images', urlparse(url).netloc)
+                download_image(img_url, folder)
         else:
-            print(f"Failed to retrieve webpage. Status code: {response.status_code}")
+            print(f"Failed to retrieve webpage {url}. Status code: {response.status_code}")
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"An error occurred while scraping images from {url}: {str(e)}")
 
-def crawl(seed_url, max_depth=2):
-    visited_urls = set()
+def scrape_images_from_domain(domain_links):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(scrape_images_from_url, domain_links)
 
-    def _crawl(url, depth):
-        if depth > max_depth or url in visited_urls:
-            return
-        visited_urls.add(url)
-
-        print(f"Scraping: {url}")
-        scrape_content(url)
-
-    _crawl(seed_url, 0)
-
-# Example usage
-start_url = 'http://www.cek.ac.in'
-crawl(start_url)
+# Example usage: Scraping images from all sites in the domain_links array
+scrape_images_from_domain(domain_links)
