@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sacrapdict</title>
+    <title>{% block title %}My Website{% endblock %}</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,21 +14,21 @@
         <div id="navbar">
             <div id="logo"><h2>Scrapdict</h2></div>
             <div id="options">
-                <p>Home</p>
-                <p>Web Srcapring</p>
-                <p>Directory Enumeration</p>
-                <p>About Us</p>
-                <p>Contact</p>
+                <a href="">Home</a>
+                <a href="/webscrap">Web Scraper</a>
+                <a href="">Directory Enumeration</a>
+                <a href="">About Us</a>
+                <a href="/contact">Contact </a>
             </div>
+        </div>
+        <div id="page">
+            <div id="strip"><p>Advancements in Directory Enumeration and Web Scraping</p></div>
+            {% block content %}
+            {% endblock %}
         </div>
         
-    <div id="page">
-            <div id="strip"><p>Advancements in Directory Enumeration and Web Scraping</p></div>
-            <div id="modules">
-                <div id="box1">Web Sracping Module</div>
-                <div id="box2">Directory Enumeration Module</div>
-            </div>
-        </div>
     </div>
+
+        
 </body>
 </html>

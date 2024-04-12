@@ -6,7 +6,17 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
+
+@app.route("/webscrap")
+def webscrap():
+    return render_template('webscrap.html')
+
+
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
 
 @app.route('/scrape', methods=['POST'])
 def scrape_url():
