@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page</title>
+    <link rel="stylesheet" href="/static/contact.css">
+</head>
+<body>
+    <div class="main">
+        <div class="page">
+            <div class="box1">
+                <h1 >Contact US</h1>
+                <p>Need to get in touch with us? Either fill out the form with your enquiry or find the <a ref=""><u>department email</u></a> you'd like to contact below</p>
+            </div>
+            <div class="box2">
+                <form >
+                    <div>
+                    <label>Enter your name</label>
+                    <input type="text">
+                    </div>
+                    <br><br>
+                    <div>
+                    <label>Email</label>
+                    <input type="email">
+                    </div>
+                    <br><br>
+                    <div>
+                    <label>What can we help with you</label>
+                    <input type="text">
+                    </div>
+                    <br><br>
+                    <div>
+                        <input type="submit">
+                    </div>
+                    
+                </form>
+
+            </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}
