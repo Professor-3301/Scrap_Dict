@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 from bs4 import BeautifulSoup
+from Tool.scrape_functions import *
 
 app = Flask(__name__)
 
@@ -12,11 +13,33 @@ def index():
 def webscrap():
     return render_template('webscrap.html')
 
+@app.route("/scrapetest", methods=['GET'])
+def scraptest():
+    url_to_scrape = request.form.get('url')
+    print(url_to_scrape)
+
+    # try:
+    #     global scraped_data = scrape_hyperlinks(url_to_scrape)
+        
+    #     return scraped_data
+    # except Exception as e:
+    #     return jsonify({'success': False, 'error': str(e)})
+    return render_template('scrapetest.html')
+
+
 
 
 @app.route("/contact")
 def contact():
     return render_template('contact.html')
+
+@app.route("/contacttest")
+def contacttest():
+    return render_template('contacttest.html')
+
+@app.route("/aboutus")
+def aboutus():
+    return render_template('aboutus.html')
 
 @app.route('/scrape', methods=['POST'])
 def scrape_url():
@@ -37,7 +60,7 @@ def scrape_url():
             # Process and store the extracted data
             scraped_data = {'data': soup.prettify()}
 
-            return render_template('result.html', data=scraped_data)
+            return render_template('scrape.html', data=scraped_data)
 
         else:
             return render_template('result.html', error='Failed to retrieve the webpage. Status code: ' + str(response.status_code))

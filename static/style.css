@@ -67,16 +67,19 @@
      justify-content: space-around;
      margin-left: 500px;
      color: darkblue;
+     
  }
  #options a
  {
     text-decoration: none;
     font-size: normal;
+    transition: transform 0.3s ease, text-decoration 0.3s ease;
  }
- #options a:hover
- {
-    color: rgb(7, 136, 180);
- }
+
+#options a:hover {
+    transform: scale(1.05);
+    text-decoration: underline;
+}
  #modules
  {
      width: 100%;
@@ -86,26 +89,37 @@
      align-items: center;
      justify-content: space-around;
  }
- #box1
- {
-     height: 90%;
-     width: 45%;
-     color: darkblue;
-     border: 2px solid darkblue;
-     border-radius: 25px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
- }    
- #box2
- {
-     height: 90%;
-     width: 45%;
-     color: darkblue;
-     border: 2px solid darkblue;
-     border-radius: 25px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     
- }
+#box1,
+#box2 {
+    height: 90%;
+    width: 45%;
+    color: darkblue;
+    border: 2px solid darkblue;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease; /* Adding transition for smooth effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding initial shadow */
+}
+
+#box1:hover,
+#box2:hover {
+    transform: scale(1.04); /* Enlarge on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Enlarge shadow on hover */
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background-color: #164A95; /* Blue color */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #164A95; /* Blue color */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
