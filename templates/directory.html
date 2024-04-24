@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+    <link rel="stylesheet" href="/static/scrapetest.css">
+</head>
+<body>
+    <div class="main">
+        <div id="page">
+            <form action="#" method="post">
+                <h2>Enter The URL</h2>
+                <input type="url" name="url" id="url" placeholder="Enter URL...">
+                <!-- <h2>Scraping Options</h2> -->
+                <!-- <select id="scraping-options" name="scraping-options">
+                    <option value="image-scraping">Image Scraping</option>
+                    <option value="link-scraping">Link Scraping</option>
+                </select> -->
+                <button type="submit">Enumerate</button>
+            </form>            
+        </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %} 
