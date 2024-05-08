@@ -1,0 +1,4 @@
+administrator
+bin
+chache
+components

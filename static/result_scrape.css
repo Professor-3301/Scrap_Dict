@@ -1,0 +1,27 @@
+#scrape-result {
+    margin-top: 20px;
+}
+
+#scrape-result h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#scrape-result ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#scrape-result li {
+    margin-bottom: 10px;
+}
+
+#scrape-result a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#scrape-result a:hover {
+    color: #0056b3;
+}
