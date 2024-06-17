@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block title %}Scraping Result{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/result_scrape.css">
+<div id="scrape-result">
+    <h2>Scraped Links</h2>
+    <ul>
+        {% for link in data %}
+        <li><a href="{{ link }}">{{ link }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
