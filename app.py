@@ -10,18 +10,11 @@ app = Flask(__name__)
 def index():
     return render_template('home.html')
 
-@app.route("/webscrap")
-def webscrap():
-    return render_template('webscrap.html')
-
 
 @app.route("/contact")
 def contact():
     return render_template('contact.html')
 
-@app.route("/contacttest")
-def contacttest():
-    return render_template('contacttest.html')
 
 @app.route("/aboutus")
 def aboutus():
@@ -50,12 +43,8 @@ def directory():
             return render_template('result.html', data=all_scraped_data)
         
         else:
-            if scraping_option == 'image-scraping':
-                scrape_images(url)
-                return send_file('./images.zip', as_attachment=True)
-            elif scraping_option == 'link-scraping':
-                scraped_data = scrape_hyperlinks(url)
-                return render_template('result.html', data=scraped_data)
+            directories = dirb_enum(url)
+            return render_template('result_dirb.html', data=directories)
     
     return render_template('directory.html')
 

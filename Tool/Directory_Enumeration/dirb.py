@@ -3,7 +3,7 @@ import subprocess
 def dirb_enum(url, threads=10):
     try:
         # Command to execute DirBuster with specified URL and number of threads
-        command = f"dirb {url} /home/adwaith/Documents/PROJECT_X/static/wordlist.txt -r {threads}"
+        command = f"dirb {url} /home/adwaith/Pictures/SCRAP_DICT/static/Wordlist/wordlist.txt -r {threads}"
         
         direc = []
         # Execute the command

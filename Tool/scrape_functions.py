@@ -75,8 +75,6 @@ def scrape_images(url):
             output_zip_file = './images.zip'
             zip_folder(folder_to_zip, output_zip_file)
 
-        else:
-            print('Failed to retrieve the webpage. Status code:', response.status_code)
 
     except Exception as e:
         print('An error occurred:', str(e))
